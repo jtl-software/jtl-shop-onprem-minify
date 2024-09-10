@@ -13,13 +13,13 @@
 // Mozilla 4. Netscape 6 claims to be version 5.
 
 var is = {
-    ie:      navigator.appName == 'Microsoft Internet Explorer',
-    java:    navigator.javaEnabled(),
-    ns:      navigator.appName == 'Netscape',
-    ua:      navigator.userAgent.toLowerCase(),
+    ie: navigator.appName == 'Microsoft Internet Explorer',
+    java: navigator.javaEnabled(),
+    ns: navigator.appName == 'Netscape',
+    ua: navigator.userAgent.toLowerCase(),
     version: parseFloat(navigator.appVersion.substr(21)) ||
-             parseFloat(navigator.appVersion),
-    win:     navigator.platform == 'Win32'
+        parseFloat(navigator.appVersion),
+    win: navigator.platform == 'Win32'
 }
 /*!*
  * preserve this comment, too
@@ -39,11 +39,11 @@ if (is.ua.indexOf('gecko') >= 0) {
     if (is.ie && is.win)
         document.write("PASS: IE/win honored conditional comment.<br>");
    @else @*/
-    if (is.ie && is.win)
-        document.write("FAIL: IE/win did not honor multi-line conditional comment.<br>");
-    else 
-        document.write("PASS: Non-IE/win browser ignores multi-line conditional comment.<br>");
-   /*@end
+if (is.ie && is.win)
+    document.write("FAIL: IE/win did not honor multi-line conditional comment.<br>");
+else
+    document.write("PASS: Non-IE/win browser ignores multi-line conditional comment.<br>");
+/*@end
 @*/
 
 var recognizesCondComm = true;
@@ -53,7 +53,7 @@ recognizesCondComm = false;
 
 if ((is.ie && is.win) == recognizesCondComm)
     document.write("PASS: IE/win honored single-line conditional comment.<br>");
-else 
+else
     document.write("FAIL: Non-IE/win browser did not ignore single-line conditional comment.<br>");
 
 // hello

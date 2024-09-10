@@ -3,8 +3,8 @@ var isWin;
     @if (@_win32)
         isWin = true;
     @else @*/
-        isWin = false;
-   /*@end
+isWin = false;
+/*@end
 @*/
 
 var recognizesCondComm = true;

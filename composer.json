@@ -49,10 +49,6 @@
     "scssphp/scssphp": "^1.12",
     "tedivm/jshrink": "~1.7.0"
   },
-  "suggest": {
-    "firephp/firephp-core": "Use FirePHP for Log messages",
-    "meenie/javascript-packer": "Keep track of the Packer PHP port using Composer"
-  },
   "scripts": {
     "test": "phpunit"
   }

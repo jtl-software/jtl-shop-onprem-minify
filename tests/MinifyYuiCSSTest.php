@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Minify\Test;
 
 use Exception;
@@ -15,7 +17,7 @@ class MinifyYuiCSSTest extends TestCase
         // https://github.com/yui/yuicompressor/releases
         // put it under tests dir as 'yuicompressor.jar'
         Minify_YUICompressor::$jarFile = __DIR__ . DIRECTORY_SEPARATOR . 'yuicompressor.jar';
-        Minify_YUICompressor::$tempDir = sys_get_temp_dir();
+        Minify_YUICompressor::$tempDir = \sys_get_temp_dir();
     }
 
     public function setUp(): void
@@ -25,7 +27,7 @@ class MinifyYuiCSSTest extends TestCase
 
     public function test1()
     {
-        $src = "/* stack overflow test */
+        $src         = "/* stack overflow test */
     div.image {
       width:            100px;
       height:           100px;
@@ -44,9 +46,9 @@ class MinifyYuiCSSTest extends TestCase
             $this->assertEquals('YUI compressor execution failed.', $e->getMessage());
         }
 
-        $options = array(
+        $options   = [
             'stack-size' => '2m',
-        );
+        ];
         $minOutput = Minify_YUICompressor::minifyCss($src, $options);
         $this->assertEquals($minExpected, $minOutput);
     }
@@ -55,7 +57,7 @@ class MinifyYuiCSSTest extends TestCase
     {
         $this->assertNotEmpty(Minify_YUICompressor::$jarFile);
         try {
-            $this->assertFileExists(Minify_YUICompressor::$jarFile, "Have YUI yuicompressor.jar");
+            $this->assertFileExists(Minify_YUICompressor::$jarFile, 'Have YUI yuicompressor.jar');
         } catch (Exception $e) {
             $this->markTestSkipped($e->getMessage());
         }

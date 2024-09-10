@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Class Minify_Cache_File
  * @package Minify
  */
+
+declare(strict_types=1);
 
 use Psr\Log\LoggerInterface;
 
@@ -56,7 +56,7 @@ class Minify_Cache_File implements Minify_CacheInterface
      */
     public function store($id, $data)
     {
-        $flag = $this->locking ? LOCK_EX : null;
+        $flag = $this->locking ? LOCK_EX : 0;
         $file = $this->path . '/' . $id;
 
         if (!@file_put_contents($file, $data, $flag)) {

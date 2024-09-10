@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Minify\Test;
 
 use Minify;
@@ -14,43 +16,43 @@ class MinifyTest extends TestCase
     {
         $minifyTestPath = self::$test_files . '/minify';
 
-        $_SERVER['DOCUMENT_ROOT'] = dirname(__DIR__);
+        $_SERVER['DOCUMENT_ROOT'] = \dirname(__DIR__);
 
-        $tomorrow = $_SERVER['REQUEST_TIME'] + 86400;
+        $tomorrow     = $_SERVER['REQUEST_TIME'] + 86400;
         $lastModified = $_SERVER['REQUEST_TIME'] - 86400;
 
         // Test 304 response
 
         // simulate conditional headers
-        $_SERVER['HTTP_IF_NONE_MATCH'] = "\"{$lastModified}pub\"";
-        $_SERVER['HTTP_IF_MODIFIED_SINCE'] = gmdate('D, d M Y H:i:s \G\M\T', $lastModified);
+        $_SERVER['HTTP_IF_NONE_MATCH']     = "\"{$lastModified}pub\"";
+        $_SERVER['HTTP_IF_MODIFIED_SINCE'] = \gmdate('D, d M Y H:i:s \G\M\T', $lastModified);
 
-        $minify = new Minify(new Minify_Cache_Null());
-        $env = new Minify_Env(array(
+        $minify        = new Minify(new Minify_Cache_Null());
+        $env           = new Minify_Env([
             'server' => $_SERVER,
-        ));
-        $sourceFactory = new Minify_Source_Factory($env, array(), new Minify_Cache_Null());
-        $controller = new Minify_Controller_Files($env, $sourceFactory);
+        ]);
+        $sourceFactory = new Minify_Source_Factory($env, [], new Minify_Cache_Null());
+        $controller    = new Minify_Controller_Files($env, $sourceFactory);
 
-        $output = $minify->serve($controller, array(
-            'files' => self::$test_files . '/css/styles.css', // controller casts to array
-            'quiet' => true,
+        $output = $minify->serve($controller, [
+            'files'            => self::$test_files . '/css/styles.css', // controller casts to array
+            'quiet'            => true,
             'lastModifiedTime' => $lastModified,
-            'encodeOutput' => false,
-        ));
+            'encodeOutput'     => false,
+        ]);
 
-        $expected = array(
-            'success' => true,
+        $expected = [
+            'success'    => true,
             'statusCode' => 304,
-            'content' => '',
-            'headers' => array(
-                'Expires' => gmdate('D, d M Y H:i:s \G\M\T', $_SERVER['REQUEST_TIME'] + 1800),
-                'Last-Modified' => gmdate('D, d M Y H:i:s \G\M\T', $lastModified),
-                'ETag' => "\"pub{$lastModified}\"",
+            'content'    => '',
+            'headers'    => [
+                'Expires'       => \gmdate('D, d M Y H:i:s \G\M\T', $_SERVER['REQUEST_TIME'] + 1800),
+                'Last-Modified' => \gmdate('D, d M Y H:i:s \G\M\T', $lastModified),
+                'ETag'          => "\"pub{$lastModified}\"",
                 'Cache-Control' => 'max-age=1800',
                 '_responseCode' => 'HTTP/1.0 304 Not Modified',
-            ),
-        );
+            ],
+        ];
 
         $this->assertEquals($expected, $output, '304 response');
 
@@ -60,111 +62,110 @@ class MinifyTest extends TestCase
 
         // Test JS and Expires
 
-        $content = preg_replace('/\\r\\n?/', "\n", file_get_contents($minifyTestPath . '/minified.js'));
-        $lastModified = max(
-            filemtime($minifyTestPath . '/email.js'),
-            filemtime($minifyTestPath . '/QueryString.js')
+        $content      = \preg_replace('/\\r\\n?/', "\n", \file_get_contents($minifyTestPath . '/minified.js'));
+        $lastModified = \max(
+            \filemtime($minifyTestPath . '/email.js'),
+            \filemtime($minifyTestPath . '/QueryString.js')
         );
-        $expected = array(
-            'success' => true,
+        $expected     = [
+            'success'    => true,
             'statusCode' => 200,
             // JSMin always converts to \n line endings
-            'content' => $content,
-            'headers' => array(
-                'Expires' => gmdate('D, d M Y H:i:s \G\M\T', $tomorrow),
-                'Vary' => 'Accept-Encoding',
-                'Last-Modified' => gmdate('D, d M Y H:i:s \G\M\T', $lastModified),
-                'ETag' => "\"pub{$lastModified}\"",
-                'Cache-Control' => 'max-age=86400',
+            'content'    => $content,
+            'headers'    => [
+                'Expires'        => \gmdate('D, d M Y H:i:s \G\M\T', $tomorrow),
+                'Vary'           => 'Accept-Encoding',
+                'Last-Modified'  => \gmdate('D, d M Y H:i:s \G\M\T', $lastModified),
+                'ETag'           => "\"pub{$lastModified}\"",
+                'Cache-Control'  => 'max-age=86400',
                 'Content-Length' => $this->countBytes($content),
-                'Content-Type' => 'application/x-javascript; charset=utf-8',
-            )
-        );
+                'Content-Type'   => 'application/x-javascript; charset=utf-8',
+            ]
+        ];
 
-        unset($_SERVER['HTTP_IF_NONE_MATCH']);
-        unset($_SERVER['HTTP_IF_MODIFIED_SINCE']);
+        unset($_SERVER['HTTP_IF_NONE_MATCH'], $_SERVER['HTTP_IF_MODIFIED_SINCE']);
 
-        $env = new Minify_Env(array(
+        $env           = new Minify_Env([
             'server' => $_SERVER,
-        ));
-        $sourceFactory = new Minify_Source_Factory($env, array(), new Minify_Cache_Null());
-        $controller = new Minify_Controller_Files($env, $sourceFactory);
-        $output = $minify->serve($controller, array(
-            'files' => array(
+        ]);
+        $sourceFactory = new Minify_Source_Factory($env, [], new Minify_Cache_Null());
+        $controller    = new Minify_Controller_Files($env, $sourceFactory);
+        $output        = $minify->serve($controller, [
+            'files'        => [
                 $minifyTestPath . '/email.js',
                 $minifyTestPath . '/QueryString.js',
-            ),
-            'quiet' => true,
-            'maxAge' => 86400,
+            ],
+            'quiet'        => true,
+            'maxAge'       => 86400,
             'encodeOutput' => false,
-        ));
+        ]);
 
         $this->assertEquals($expected, $output, 'JS and Expires');
 
         // test for Issue 73
-        $expected = ";function h(){}";
-        $output = $minify->serve($controller, array(
-            'files' => array(
+        $expected = ';function h(){}';
+        $output   = $minify->serve($controller, [
+            'files'        => [
                 $minifyTestPath . '/issue73_1.js',
                 $minifyTestPath . '/issue73_2.js',
-            ),
-            'quiet' => true,
+            ],
+            'quiet'        => true,
             'encodeOutput' => false,
-        ));
-        $output = $output['content'];
+        ]);
+        $output   = $output['content'];
 
         $this->assertEquals($expected, $output, 'Issue 73');
 
         // test for Issue 89
-        $expected = file_get_contents($minifyTestPath . '/issue89_out.min.css');
-        $output = $minify->serve($controller, array(
-            'files' => array(
+        $expected = \file_get_contents($minifyTestPath . '/issue89_out.min.css');
+        $output   = $minify->serve($controller, [
+            'files'            => [
                 $minifyTestPath . '/issue89_1.css',
                 $minifyTestPath . '/issue89_2.css',
-            ),
-            'quiet' => true,
-            'encodeOutput' => false,
+            ],
+            'quiet'            => true,
+            'encodeOutput'     => false,
             'bubbleCssImports' => true,
-        ));
-        $output = $output['content'];
+        ]);
+        $output   = $output['content'];
 
         $this->assertEquals($expected, $output, 'Issue 89 : bubbleCssImports');
 
-        $output = $minify->serve($controller, array(
-            'files' => array(
+        $output = $minify->serve($controller, [
+            'files'        => [
                 $minifyTestPath . '/issue89_1.css',
                 $minifyTestPath . '/issue89_2.css',
-            ),
-            'quiet' => true,
+            ],
+            'quiet'        => true,
             'encodeOutput' => false,
-        ));
+        ]);
         $output = $output['content'];
 
         $defaultOptions = $minify->getDefaultOptions();
 
-        $this->assertEquals(0, strpos($output, $defaultOptions['importWarning']), 'Issue 89 : detect invalid imports');
+        $this->assertEquals(0, \strpos($output, $defaultOptions['importWarning']), 'Issue 89 : detect invalid imports');
 
-        $output = $minify->serve($controller, array(
-            'files' => array(
+        $output = $minify->serve($controller, [
+            'files'        => [
                 $minifyTestPath . '/issue89_1.css',
-            ),
-            'quiet' => true,
+            ],
+            'quiet'        => true,
             'encodeOutput' => false,
-        ));
+        ]);
         $output = $output['content'];
 
         $this->assertFalse(
-            strpos($output, $defaultOptions['importWarning']),
+            \strpos($output, $defaultOptions['importWarning']),
             'Issue 89 : don\'t warn about valid imports'
         );
 
         // Test Issue 132
-        if (function_exists('mb_strlen') && ((int)ini_get('mbstring.func_overload') & 2)) {
-            $output = $minify->serve($controller, array(
-                'files' => array(__DIR__ . '/_test_files/js/issue132.js'),
-                'quiet' => true,
+        if (\function_exists('mb_strlen')) {
+            $output = $minify->serve($controller, [
+                'files'        => [__DIR__ . '/_test_files/js/issue132.js'],
+                'quiet'        => true,
                 'encodeOutput' => false,
-            ));
+            ]);
 
             $this->assertEquals(
                 77,
@@ -178,38 +179,38 @@ class MinifyTest extends TestCase
         // don't allow conditional headers
         unset($_SERVER['HTTP_IF_NONE_MATCH'], $_SERVER['HTTP_IF_MODIFIED_SINCE']);
 
-        $expectedContent = file_get_contents($minifyTestPath . '/minified.css');
+        $expectedContent = \file_get_contents($minifyTestPath . '/minified.css');
 
-        $expected = array(
-            'success' => true,
+        $expected = [
+            'success'    => true,
             'statusCode' => 200,
-            'content' => $expectedContent,
-            'headers' => array(
-                'Vary' => 'Accept-Encoding',
-                'Last-Modified' => gmdate('D, d M Y H:i:s \G\M\T', $lastModified),
-                'ETag' => "\"pub{$lastModified}\"",
-                'Cache-Control' => 'max-age=0',
+            'content'    => $expectedContent,
+            'headers'    => [
+                'Vary'           => 'Accept-Encoding',
+                'Last-Modified'  => \gmdate('D, d M Y H:i:s \G\M\T', $lastModified),
+                'ETag'           => "\"pub{$lastModified}\"",
+                'Cache-Control'  => 'max-age=0',
                 'Content-Length' => $this->countBytes($expectedContent),
-                'Content-Type' => 'text/css; charset=utf-8',
-            )
-        );
+                'Content-Type'   => 'text/css; charset=utf-8',
+            ]
+        ];
 
-        $env = new Minify_Env(array(
+        $env           = new Minify_Env([
             'server' => $_SERVER,
-        ));
-        $sourceFactory = new Minify_Source_Factory($env, array(), new Minify_Cache_Null());
-        $controller = new Minify_Controller_Files($env, $sourceFactory);
+        ]);
+        $sourceFactory = new Minify_Source_Factory($env, [], new Minify_Cache_Null());
+        $controller    = new Minify_Controller_Files($env, $sourceFactory);
 
-        $output = $minify->serve($controller, array(
-            'files' => array(
+        $output = $minify->serve($controller, [
+            'files'            => [
                 self::$test_files . '/css/styles.css',
                 self::$test_files . '/css/comments.css',
-            ),
-            'quiet' => true,
+            ],
+            'quiet'            => true,
             'lastModifiedTime' => $lastModified,
-            'encodeOutput' => false,
-            'maxAge' => false,
-        ));
+            'encodeOutput'     => false,
+            'maxAge'           => false,
+        ]);
 
         $this->assertEquals($expected, $output, 'CSS and Etag/Last-Modified');
     }

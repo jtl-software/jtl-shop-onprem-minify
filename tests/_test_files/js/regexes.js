@@ -2,11 +2,11 @@ function testIssue74() {
     return /'/;
 }
 
-!function(s) {
+!function (s) {
     return /^[£$€?.]/.test(s);
 }();
 
-typeof  
+typeof
     / ' /;
 
 x = / [/] /;
@@ -19,6 +19,10 @@ x = / [/] /;
 
 / foo;
 
-function(){return/foo/};
+function () {
+    return /foo/
+};
 
-function(){return typeof/foo/};
+function () {
+    return typeof /foo/
+};

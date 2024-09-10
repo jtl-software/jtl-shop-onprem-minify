@@ -146,6 +146,7 @@ class Minify_Lines
      */
     private static function _addNote($line, $note, $inComment, $padTo)
     {
+        $note = (string)$note;
         if ($inComment) {
             $line = '/* ' . str_pad($note, $padTo, ' ', STR_PAD_RIGHT) . ' *| ' . $line;
         } else {

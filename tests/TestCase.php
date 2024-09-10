@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Minify\Test;
 
 use Minify_CacheInterface;
@@ -14,7 +16,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     public static function setupBeforeClass(): void
     {
         self::$document_root = __DIR__;
-        self::$test_files = __DIR__ . '/_test_files';
+        self::$test_files    = __DIR__ . '/_test_files';
     }
 
     /**
@@ -25,17 +27,17 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function countBytes($str)
     {
-        return (function_exists('mb_strlen') && ((int) ini_get('mbstring.func_overload') & 2))
+        return \function_exists('mb_strlen')
             ? mb_strlen($str, '8bit')
-            : strlen($str);
+            : \strlen($str);
     }
 
     /**
      * Common assertion for cache tests.
      *
      * @param Minify_CacheInterface $cache
-     * @param string $id
-     * @param string $data
+     * @param string                $id
+     * @param string                $data
      */
     protected function assertTestCache(Minify_CacheInterface $cache, $id, $data)
     {
@@ -43,10 +45,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         $this->assertEquals($cache->getSize($id), $this->countBytes($data), "$id getSize");
         $this->assertTrue($cache->isValid($id, $_SERVER['REQUEST_TIME'] - 10), "$id isValid");
 
-        ob_start();
+        \ob_start();
         $cache->display($id);
-        $displayed = ob_get_contents();
-        ob_end_clean();
+        $displayed = \ob_get_contents();
+        \ob_end_clean();
 
         $this->assertSame($data, $displayed, "$id display");
         $this->assertEquals($data, $cache->fetch($id), "$id fetch");
@@ -63,9 +65,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         $path = self::$test_files . '/' . $filename;
         $this->assertFileExists($path);
-        $contents = file_get_contents($path);
+        $contents = \file_get_contents($path);
         $this->assertNotEmpty($contents);
-        $contents = trim($contents);
+        $contents = \trim($contents);
         $this->assertNotEmpty($contents);
 
         return $contents;

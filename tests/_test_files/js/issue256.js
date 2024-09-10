@@ -1,3 +1,5 @@
-!function(){}(window)
+!function () {
+}(window)
 
-!function(){}(window)
+!function () {
+}(window)

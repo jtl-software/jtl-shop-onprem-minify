@@ -100,7 +100,7 @@ class Minify_HTML
             $this->_isXhtml = (str_contains($this->_html, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML'));
         }
 
-        $this->_replacementHash = 'MINIFYHTML' . md5($_SERVER['REQUEST_TIME']);
+        $this->_replacementHash = 'MINIFYHTML' . md5((string)$_SERVER['REQUEST_TIME']);
         $this->_placeholders    = [];
 
         // replace SCRIPTs (and minify) with placeholders

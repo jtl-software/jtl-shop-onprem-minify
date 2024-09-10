@@ -1,4 +1,3 @@
-
 // fragment downloaded from jquery-cookie 1.0
 // https://raw.githubusercontent.com/carhartl/jquery-cookie/v1.0/jquery.cookie.js
 // see https://code.google.com/p/closure-compiler/issues/detail?id=513
@@ -14,4 +13,4 @@
  * @desc Delete a cookie by passing null as value. Keep in mind that you have to use the same path and domain
  *       used when the cookie was set.
  */
-var a=1+3;
+var a = 1 + 3;

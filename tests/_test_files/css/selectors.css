@@ -37,6 +37,6 @@ E::before
 E::after
 E.warning#myid
 E:not(s)
- > F
- + F
- ~ F {color: red;}
+> F
++ F
+~ F {color: red;}

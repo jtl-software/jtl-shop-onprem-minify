@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Minify\Test;
 
 use Exception;
@@ -18,8 +20,8 @@ class MinifyNailgunClosureCompilerTest extends TestCase
         // put it under tests dir as 'compiler.jar'
 
         // set minimum necessary settings
-        Minify_ClosureCompiler::$jarFile = __DIR__ . DIRECTORY_SEPARATOR . 'compiler.jar';
-        Minify_ClosureCompiler::$tempDir = sys_get_temp_dir();
+        Minify_ClosureCompiler::$jarFile          = __DIR__ . DIRECTORY_SEPARATOR . 'compiler.jar';
+        Minify_ClosureCompiler::$tempDir          = \sys_get_temp_dir();
         Minify_NailgunClosureCompiler::$ngJarFile = __DIR__ . DIRECTORY_SEPARATOR . 'nailgun.jar';
     }
 
@@ -29,7 +31,7 @@ class MinifyNailgunClosureCompilerTest extends TestCase
     public function test1()
     {
         $this->assertHasJar();
-        $src = "
+        $src         = '
     (function (window, undefined){
         function addOne(input) {
             return 1 + input;
@@ -37,9 +39,9 @@ class MinifyNailgunClosureCompilerTest extends TestCase
         window.addOne = addOne;
         window.undefined = undefined;
     })(window);
-        ";
-        $minExpected = "(function(a,b){a.addOne=function(a){return 1+a};a.undefined=b})(window);";
-        $minOutput = Minify_NailgunClosureCompiler::minify($src);
+        ';
+        $minExpected = '(function(a,b){a.addOne=function(a){return 1+a};a.undefined=b})(window);';
+        $minOutput   = Minify_NailgunClosureCompiler::minify($src);
         $this->assertSame($minExpected, $minOutput, 'minimum necessary settings');
     }
 
@@ -48,8 +50,8 @@ class MinifyNailgunClosureCompilerTest extends TestCase
         $this->assertNotEmpty(Minify_ClosureCompiler::$jarFile);
         $this->assertNotEmpty(Minify_NailgunClosureCompiler::$ngJarFile);
         try {
-            $this->assertFileExists(Minify_ClosureCompiler::$jarFile, "Have closure compiler compiler.jar");
-            $this->assertFileExists(Minify_NailgunClosureCompiler::$ngJarFile, "Have nailgun.jar");
+            $this->assertFileExists(Minify_ClosureCompiler::$jarFile, 'Have closure compiler compiler.jar');
+            $this->assertFileExists(Minify_NailgunClosureCompiler::$ngJarFile, 'Have nailgun.jar');
         } catch (Exception $e) {
             $this->markTestSkipped($e->getMessage());
         }

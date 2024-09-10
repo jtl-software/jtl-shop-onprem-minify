@@ -2,19 +2,19 @@ var MrClay = window.MrClay || {};
 
 /**
  * Simplified access to/manipulation of the query string
- * 
+ *
  * Based on: http://adamv.com/dev/javascript/files/querystring.js
  * Design pattern: http://www.litotes.demon.co.uk/js_info/private_static.html#wConst
  */
-MrClay.QueryString = function(){
+MrClay.QueryString = function () {
     /**
      * @static
      * @private
      */
-    var parse = function(str) {
+    var parse = function (str) {
         var assignments = str.split('&')
-            ,obj = {}
-            ,propValue;
+            , obj = {}
+            , propValue;
         for (var i = 0, l = assignments.length; i < l; ++i) {
             propValue = assignments[i].split('=');
             if (propValue.length > 2
@@ -30,7 +30,7 @@ MrClay.QueryString = function(){
         }
         return obj;
     };
-    
+
     /**
      * Constructor (MrClay.QueryString becomes this)
      *
@@ -47,7 +47,7 @@ MrClay.QueryString = function(){
         }
         this.vars = parse(spec);
     }
-    
+
     /**
      * Reload the window
      *
@@ -56,21 +56,21 @@ MrClay.QueryString = function(){
      * @param object vars Specify querystring vars only if you wish to replace them
      * @param object window_ window to be reloaded (current window by default)
      */
-    construct_.reload = function(vars, window_) {
+    construct_.reload = function (vars, window_) {
         window_ = window_ || window;
         vars = vars || (new MrClay.QueryString(window_)).vars;
         var l = window_.location
-            ,currUrl = l.href
-            ,s = MrClay.QueryString.toString(vars)
-            ,newUrl = l.protocol + '//' + l.hostname + l.pathname
-                + (s ? '?' + s : '') + l.hash;
+            , currUrl = l.href
+            , s = MrClay.QueryString.toString(vars)
+            , newUrl = l.protocol + '//' + l.hostname + l.pathname
+            + (s ? '?' + s : '') + l.hash;
         if (currUrl == newUrl) {
             l.reload();
         } else {
             l.assign(newUrl);
         }
     };
-    
+
     /**
      * Get the value of a querystring var
      *
@@ -81,11 +81,11 @@ MrClay.QueryString = function(){
      * @param object window_ window to check (current window by default)
      * @return mixed
      */
-    construct_.get = function(key, default_, window_) {
+    construct_.get = function (key, default_, window_) {
         window_ = window_ || window;
         return (new MrClay.QueryString(window_)).get(key, default_);
     };
-    
+
     /**
      * Reload the page setting one or multiple querystring vars
      *
@@ -96,11 +96,11 @@ MrClay.QueryString = function(){
      * @param mixed null for multiple settings, the value to assign for single
      * @param object window_ window to reload (current window by default)
      */
-    construct_.set = function(key, value, window_) {
+    construct_.set = function (key, value, window_) {
         window_ = window_ || window;
         (new MrClay.QueryString(window_)).set(key, value).reload();
     };
-    
+
     /**
      * Convert an object of query vars/values to a querystring
      *
@@ -109,26 +109,26 @@ MrClay.QueryString = function(){
      * @param object query vars/values
      * @return string
      */
-    construct_.toString = function(vars) {
+    construct_.toString = function (vars) {
         var pieces = [];
         for (var prop in vars) {
             pieces.push(escape(prop) + '=' + escape(vars[prop]));
         }
         return pieces.join('&');
     };
-    
+
     /**
      * @public
      */
-    construct_.prototype.reload = function() {
+    construct_.prototype.reload = function () {
         MrClay.QueryString.reload(this.vars, this.window);
         return this;
     };
-    
+
     /**
      * @public
      */
-    construct_.prototype.get = function(key, default_) {
+    construct_.prototype.get = function (key, default_) {
         if (typeof default_ == 'undefined') {
             default_ = null;
         }
@@ -136,11 +136,11 @@ MrClay.QueryString = function(){
             ? default_
             : this.vars[key];
     };
-    
+
     /**
      * @public
      */
-    construct_.prototype.set = function(key, value) {
+    construct_.prototype.set = function (key, value) {
         var obj = {};
         if (typeof key == 'string') {
             obj[key] = value;
@@ -156,13 +156,13 @@ MrClay.QueryString = function(){
         }
         return this;
     };
-    
+
     /**
      * @public
      */
-    construct_.prototype.toString = function() {
+    construct_.prototype.toString = function () {
         return QueryString.toString(this.vars);
     };
-    
+
     return construct_;
 }(); // define and execute
