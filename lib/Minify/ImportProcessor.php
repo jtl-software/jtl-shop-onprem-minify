@@ -23,14 +23,7 @@ declare(strict_types=1);
  */
 class Minify_ImportProcessor
 {
-    public static $filesIncluded = [];
-
-    public static function process($file)
-    {
-        self::$filesIncluded = [];
-        self::$_isCss        = (strtolower(substr($file, -4)) === '.css');
-        return (new Minify_ImportProcessor(dirname($file)))->_getContent($file);
-    }
+    public static array $filesIncluded = [];
 
     // allows callback funcs to know the current directory
     private $_currentDir;
@@ -43,9 +36,16 @@ class Minify_ImportProcessor
 
     private static $_isCss;
 
+    public static function process($file)
+    {
+        self::$filesIncluded = [];
+        self::$_isCss        = (strtolower(substr($file, -4)) === '.css');
+        return (new Minify_ImportProcessor(dirname($file)))->_getContent($file);
+    }
+
     /**
-     * @param String $currentDir
-     * @param String $previewsDir Is only used internally
+     * @param string $currentDir
+     * @param string $previewsDir Is only used internally
      */
     private function __construct($currentDir, $previewsDir = '')
     {

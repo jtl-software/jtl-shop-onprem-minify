@@ -41,7 +41,7 @@ class Minify_Controller_Files extends Minify_Controller_Base
      *
      * 'files': (required) array of complete file paths, or a single path
      */
-    public function createConfiguration(array $options)
+    public function createConfiguration(array $options): Minify_ServeConfiguration
     {
         // strip controller options
 

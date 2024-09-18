@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 class Minify_LessCssSource extends Minify_Source
 {
-    /**
-     * @var Minify_CacheInterface
-     */
-    private $cache;
+    private Minify_CacheInterface $cache;
 
     /**
      * Parsed lessphp cache object

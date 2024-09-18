@@ -22,9 +22,9 @@ declare(strict_types=1);
 class Minify_HTML
 {
     /**
-     * @var boolean
+     * @var bool
      */
-    protected $_jsCleanComments = true;
+    protected bool $_jsCleanComments = true;
 
     /**
      * @var string

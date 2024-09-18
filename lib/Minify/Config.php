@@ -8,35 +8,20 @@ use Minify_CacheInterface;
 
 class Config
 {
-    /**
-     * @var bool
-     */
-    public $enableBuilder = false;
+    public bool $enableBuilder = false;
 
-    /**
-     * @var bool
-     */
-    public $enableStatic = false;
+    public bool $enableStatic = false;
 
-    /**
-     * @var bool
-     */
-    public $concatOnly = false;
+    public bool $concatOnly = false;
 
-    /**
-     * @var string
-     */
-    public $builderPassword = 'admin';
+    public string $builderPassword = 'admin';
 
     /**
      * @var bool|object
      */
     public $errorLogger = false;
 
-    /**
-     * @var bool
-     */
-    public $allowDebugFlag = false;
+    public bool $allowDebugFlag = false;
 
     /**
      * @var string|Minify_CacheInterface
@@ -46,35 +31,35 @@ class Config
     /**
      * @var string
      */
-    public $documentRoot = '';
+    public string $documentRoot = '';
 
     /**
      * @var bool
      */
-    public $cacheFileLocking = true;
+    public bool $cacheFileLocking = true;
 
     /**
      * @var array
      */
-    public $serveOptions = [];
+    public array $serveOptions = [];
 
     /**
      * @var array
      */
-    public $symlinks = [];
+    public array $symlinks = [];
 
     /**
      * @var int
      */
-    public $uploaderHoursBehind = 0;
+    public int $uploaderHoursBehind = 0;
 
     /**
      * @var array
      */
-    public $envArgs = [];
+    public array $envArgs = [];
 
     /**
      * @var callable[]
      */
-    public $factories = [];
+    public array $factories = [];
 }

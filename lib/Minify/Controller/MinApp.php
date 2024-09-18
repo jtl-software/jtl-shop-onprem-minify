@@ -16,13 +16,9 @@ declare(strict_types=1);
 class Minify_Controller_MinApp extends Minify_Controller_Base
 {
     /**
-     * Set up groups of files as sources
-     *
-     * @param array $options controller and Minify options
-     *
-     * @return array Minify options
+     * @inheritdoc
      */
-    public function createConfiguration(array $options)
+    public function createConfiguration(array $options): Minify_ServeConfiguration
     {
         // PHP insecure by default: realpath() and other FS functions can't handle null bytes.
         $get = $this->env->get();

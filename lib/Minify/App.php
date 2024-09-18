@@ -36,12 +36,7 @@ use RuntimeException;
  */
 class App extends Container
 {
-    /**
-     * Constructor
-     *
-     * @param string $dir Directory containing config files
-     */
-    public function __construct($dir)
+    public function __construct(string $dir)
     {
         $that = $this;
 
@@ -183,14 +178,6 @@ class App extends Container
                 return $logger;
             }
 
-            // BC
-            if (\is_object($value) && \is_callable([$value, 'log'])) {
-                $handler = new Minify\Logger\LegacyHandler($value);
-                $logger->pushHandler($handler);
-
-                return $logger;
-            }
-
             $type = $that->typeOf($value);
             throw new RuntimeException(
                 'If set, $min_errorLogger must be a PSR-3 logger or a Monolog handler.'
@@ -282,7 +269,7 @@ class App extends Container
         };
     }
 
-    public function runServer()
+    public function runServer(): void
     {
         if (!$this->env->get('f') && $this->env->get('g') === null) {
             // no spec given

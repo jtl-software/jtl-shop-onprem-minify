@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Class Minify_Controller_Base
  * @package Minify
  */
+
+declare(strict_types=1);
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
@@ -20,26 +20,12 @@ use Psr\Log\LoggerInterface;
  */
 abstract class Minify_Controller_Base implements Minify_ControllerInterface
 {
-    /**
-     * @var Minify_Env
-     */
-    protected $env;
+    protected Minify_Env $env;
 
-    /**
-     * @var Minify_Source_Factory
-     */
-    protected $sourceFactory;
+    protected Minify_Source_Factory $sourceFactory;
 
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
+    protected LoggerInterface $logger;
 
-    /**
-     * @param Minify_Env            $env
-     * @param Minify_Source_Factory $sourceFactory
-     * @param LoggerInterface|null  $logger
-     */
     public function __construct(Minify_Env $env, Minify_Source_Factory $sourceFactory, LoggerInterface $logger = null)
     {
         $this->env           = $env;
@@ -51,32 +37,14 @@ abstract class Minify_Controller_Base implements Minify_ControllerInterface
     }
 
     /**
-     * Create controller sources and options for Minify::serve()
-     *
-     * @param array $options controller and Minify options
-     *
-     * @return Minify_ServeConfiguration
+     * @inheritdoc
      */
-    abstract public function createConfiguration(array $options);
+    abstract public function createConfiguration(array $options): Minify_ServeConfiguration;
 
     /**
-     * Send message to the Minify logger
-     *
-     * @param string $msg
-     *
-     * @return null
-     * @deprecated use $this->logger
+     * @inheritdoc
      */
-    public function log($msg)
-    {
-        trigger_error(__METHOD__ . ' is deprecated in Minify 3.0.', E_USER_DEPRECATED);
-        $this->logger->info($msg);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEnv()
+    public function getEnv(): Minify_Env
     {
         return $this->env;
     }

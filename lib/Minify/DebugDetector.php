@@ -10,7 +10,7 @@ declare(strict_types=1);
  */
 class Minify_DebugDetector
 {
-    public static function shouldDebugRequest(Minify_Env $env)
+    public static function shouldDebugRequest(Minify_Env $env): bool
     {
         if ($env->get('debug') !== null) {
             return true;

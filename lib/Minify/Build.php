@@ -65,8 +65,8 @@ class Minify_Build
      * // outputs "/scriptaculous.js?load=effects&amp1678242"
      * </code>
      *
-     * @param string  $uri
-     * @param boolean $forceAmpersand (default = false) Force the use of ampersand to
+     * @param string $uri
+     * @param bool   $forceAmpersand (default = false) Force the use of ampersand to
      * append the timestamp to the URI.
      * @return string
      */

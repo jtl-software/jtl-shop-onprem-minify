@@ -48,7 +48,7 @@ class Minify
      *
      * @var Minify_CacheInterface
      */
-    private $cache;
+    private Minify_CacheInterface $cache;
 
     /**
      * Active controller for current request
@@ -79,10 +79,7 @@ class Minify
      */
     protected $options;
 
-    /**
-     * @var LoggerInterface|null
-     */
-    protected $logger;
+    protected ?LoggerInterface $logger;
 
     /**
      * @param Minify_CacheInterface $cache

@@ -29,16 +29,9 @@ declare(strict_types=1);
 class Minify_Controller_Groups extends Minify_Controller_Files
 {
     /**
-     * Set up groups of files as sources
-     *
-     * @param array $options controller and Minify options
-     *
-     * 'groups': (required) array mapping PATH_INFO strings to arrays
-     * of complete file paths. @return array Minify options
-     * @see Minify_Controller_Groups
-     *
+     * @inheritdoc
      */
-    public function createConfiguration(array $options)
+    public function createConfiguration(array $options): Minify_ServeConfiguration
     {
         // strip controller options
         $groups = $options['groups'];

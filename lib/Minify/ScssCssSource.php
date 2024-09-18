@@ -114,8 +114,7 @@ class Minify_ScssCssSource extends Minify_Source
      * Determine whether .scss file needs to be re-compiled.
      *
      * @param array $cache Cache object
-     *
-     * @return boolean True if compile required.
+     * @return bool True if compile required.
      */
     private function cacheIsStale($cache)
     {

@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
-use JSMin\JSMin;
-
 /**
  * Class Minify_Controller_Page
  * @package Minify
  */
+
+declare(strict_types=1);
+
+use JSMin\JSMin;
 
 /**
  * Controller class for serving a single HTML page
@@ -19,24 +19,9 @@ use JSMin\JSMin;
 class Minify_Controller_Page extends Minify_Controller_Base
 {
     /**
-     * Set up source of HTML content
-     *
-     * @param array $options controller and Minify options
-     * @return array Minify options
-     *
-     * Controller options:
-     *
-     * 'content': (required) HTML markup
-     *
-     * 'id': (required) id of page (string for use in server-side caching)
-     *
-     * 'lastModifiedTime': timestamp of when this content changed. This
-     * is recommended to allow both server and client-side caching.
-     *
-     * 'minifyAll': should all CSS and Javascript blocks be individually
-     * minified? (default false)
+     * @inheritdoc
      */
-    public function createConfiguration(array $options)
+    public function createConfiguration(array $options): Minify_ServeConfiguration
     {
         if (isset($options['file'])) {
             $sourceSpec = [

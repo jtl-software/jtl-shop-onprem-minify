@@ -4,23 +4,25 @@ declare(strict_types=1);
 
 class Minify_Env
 {
-    /**
-     * @return string
-     */
-    public function getDocRoot()
+    protected $server;
+
+    protected $get;
+
+    protected $post;
+
+    protected $cookie;
+
+    public function getDocRoot(): string
     {
         return $this->server['DOCUMENT_ROOT'];
     }
 
-    /**
-     * @return string
-     */
-    public function getRequestUri()
+    public function getRequestUri(): string
     {
         return $this->server['REQUEST_URI'];
     }
 
-    public function __construct($options = [])
+    public function __construct(array $options = [])
     {
         $options = array_merge([
             'server' => $_SERVER,
@@ -103,18 +105,13 @@ class Minify_Env
         return $path;
     }
 
-    protected $server;
-    protected $get;
-    protected $post;
-    protected $cookie;
-
     /**
      * Compute $_SERVER['DOCUMENT_ROOT'] for IIS using SCRIPT_FILENAME and SCRIPT_NAME.
      *
      * @param array $server
      * @return string
      */
-    protected function computeDocRoot(array $server)
+    protected function computeDocRoot(array $server): string
     {
         if (isset($server['SERVER_SOFTWARE']) && !str_starts_with($server['SERVER_SOFTWARE'], 'Microsoft-IIS/')) {
             throw new InvalidArgumentException('DOCUMENT_ROOT is not provided and could not be computed');

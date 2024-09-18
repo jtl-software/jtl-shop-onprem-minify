@@ -157,29 +157,4 @@ class Minify_Cache_File implements Minify_CacheInterface
     {
         return $this->path;
     }
-
-    /**
-     * Get a usable temp directory
-     *
-     * @return string
-     * @deprecated
-     */
-    public static function tmp()
-    {
-        trigger_error(__METHOD__ . ' is deprecated in Minfy 3.0', E_USER_DEPRECATED);
-
-        return sys_get_temp_dir();
-    }
-
-    /**
-     * Send message to the Minify logger
-     * @param string $msg
-     * @return null
-     * @deprecated Use $this->logger
-     */
-    protected function _log($msg)
-    {
-        trigger_error(__METHOD__ . ' is deprecated in Minify 3.0.', E_USER_DEPRECATED);
-        $this->logger->warning($msg);
-    }
 }
