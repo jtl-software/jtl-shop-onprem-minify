@@ -35,8 +35,6 @@ class Minify_Cache_APCu implements Minify_CacheInterface
      *
      * @param int $expire seconds until expiration (default = 0
      * meaning the item will not get an expiration date)
-     *
-     * @return null
      */
     public function __construct($expire = 0)
     {
@@ -47,9 +45,7 @@ class Minify_Cache_APCu implements Minify_CacheInterface
      * Write data to cache.
      *
      * @param string $id cache id
-     *
      * @param string $data
-     *
      * @return bool success
      */
     public function store($id, $data)

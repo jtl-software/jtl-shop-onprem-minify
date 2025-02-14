@@ -74,7 +74,7 @@ class Minify_Build
     {
         $sep = ($forceAmpersand || str_contains($uri, '?')) ? self::$ampersand : '?';
 
-        return "{$uri}{$sep}{$this->lastModified}";
+        return $uri . $sep . $this->lastModified;
     }
 
     /**

@@ -62,15 +62,13 @@ class Minify_NailgunClosureCompiler extends Minify_ClosureCompiler
         ];
 
         // The command for the server that should show up in the process list
-        $server = [
+        return [
             self::$javaExecutable,
             '-server',
             '-cp',
             implode(':', $classPath),
             self::NG_SERVER,
         ];
-
-        return $server;
     }
 
     /**

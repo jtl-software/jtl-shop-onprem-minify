@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
 class Minify_Cache_File implements Minify_CacheInterface
@@ -31,7 +32,7 @@ class Minify_Cache_File implements Minify_CacheInterface
      * @param bool                 $fileLocking
      * @param LoggerInterface|null $logger
      */
-    public function __construct(string $path = '', bool $fileLocking = false, LoggerInterface $logger = null)
+    public function __construct(string $path = '', bool $fileLocking = false, ?LoggerInterface $logger = null)
     {
         if (!$path) {
             $path = sys_get_temp_dir();
@@ -40,7 +41,7 @@ class Minify_Cache_File implements Minify_CacheInterface
         $this->path    = $path;
 
         if (!$logger) {
-            $logger = new \Monolog\Logger('minify');
+            $logger = new Logger('minify');
         }
         $this->logger = $logger;
     }

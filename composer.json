@@ -33,7 +33,7 @@
     "sort-packages": true
   },
   "require": {
-    "php": "^8.2",
+    "php": ">=8.2",
     "ext-pcre": "*",
     "ext-mbstring": "*",
     "intervention/httpauth": "^5.0",

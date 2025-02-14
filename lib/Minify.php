@@ -85,7 +85,7 @@ class Minify
      * @param Minify_CacheInterface $cache
      * @param LoggerInterface|null  $logger
      */
-    public function __construct(Minify_CacheInterface $cache, LoggerInterface $logger = null)
+    public function __construct(Minify_CacheInterface $cache, ?LoggerInterface $logger = null)
     {
         $this->cache  = $cache;
         $this->logger = $logger;
@@ -227,8 +227,7 @@ class Minify
         $this->env = $controller->getEnv();
 
         $options = array_merge($this->getDefaultOptions(), $options);
-
-        $config = $controller->createConfiguration($options);
+        $config  = $controller->createConfiguration($options);
 
         $this->sources     = $config->getSources();
         $this->selectionId = $config->getSelectionId();
@@ -238,6 +237,7 @@ class Minify
         $content            = '';
         $contentEncoding    = '';
         $sendVary           = false;
+        $fullCacheId        = null;
 
         if (!$this->options['quiet'] && !headers_sent()) {
             ini_set('zlib.output_compression', '0');
@@ -351,8 +351,7 @@ class Minify
             $fullCacheId = ($this->options['encodeMethod']) ? $cacheId . '.gz' : $cacheId;
 
             // check cache for valid entry
-            $cacheIsReady       = $this->cache->isValid($fullCacheId, $this->options['lastModifiedTime']);
-            $cacheContentLength = 0;
+            $cacheIsReady = $this->cache->isValid($fullCacheId, $this->options['lastModifiedTime']);
             if ($cacheIsReady) {
                 $cacheContentLength = $this->cache->getSize($fullCacheId);
             } else {
@@ -436,9 +435,7 @@ class Minify
      * No internal caching will be used and the content will not be HTTP encoded.
      *
      * @param array $sources array of filepaths and/or Minify_Source objects
-     *
      * @param array $options (optional) array of options for serve.
-     *
      * @return string
      */
     public function combine($sources, $options = [])
@@ -471,12 +468,10 @@ class Minify
      * @param string $header Full header. E.g. 'HTTP/1.0 500 Internal Server Error'
      * @param string $url URL to direct the user to
      * @param string $msgHtml HTML message for the client
-     *
-     * @return void
      * @internal This is not part of the public API and is subject to change
      * @access private
      */
-    public function errorExit($header, $url = '', $msgHtml = '')
+    public function errorExit($header, $url = '', $msgHtml = ''): never
     {
         $url = htmlspecialchars($url);
 

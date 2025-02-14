@@ -103,7 +103,7 @@ class App extends Container
             return $config;
         };
 
-        $this->configPath = "{$this->dir}/config.php";
+        $this->configPath = $this->dir . '/config.php';
 
         $this->controller = static function (App $app) use ($that) {
             $config = $app->config;
@@ -150,7 +150,7 @@ class App extends Container
             return (require $app->groupsConfigPath);
         };
 
-        $this->groupsConfigPath = "{$this->dir}/groupsConfig.php";
+        $this->groupsConfigPath = $this->dir . '/groupsConfig.php';
 
         $this->logger = static function (App $app) use ($that) {
             $value = $app->config->errorLogger;

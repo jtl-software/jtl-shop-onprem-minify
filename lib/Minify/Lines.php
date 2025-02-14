@@ -105,7 +105,7 @@ class Minify_Lines
                 // stop comment and keep walking line
                 $inComment = false;
 
-                @$line = (string)substr($line, $index + 2);
+                @$line = substr($line, $index + 2);
                 continue;
             }
 
@@ -119,7 +119,7 @@ class Minify_Lines
             if ($single === false || $multi < $single) {
                 // start comment and keep walking line
                 $inComment = true;
-                @$line = (string)substr($line, $multi + 2);
+                @$line = substr($line, $multi + 2);
                 continue;
             }
 

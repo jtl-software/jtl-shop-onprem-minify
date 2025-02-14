@@ -12,5 +12,8 @@ interface Minify_ControllerInterface
      */
     public function createConfiguration(array $options): Minify_ServeConfiguration;
 
+    /**
+     * @return Minify_Env
+     */
     public function getEnv(): Minify_Env;
 }

@@ -44,7 +44,7 @@ class Minify_Source_Factory
      *
      * @param Minify_CacheInterface|null $cache Optional cache for handling .less files.
      */
-    public function __construct(Minify_Env $env, array $options = [], Minify_CacheInterface $cache = null)
+    public function __construct(Minify_Env $env, array $options = [], ?Minify_CacheInterface $cache = null)
     {
         $this->env     = $env;
         $this->options = array_merge([

@@ -155,7 +155,7 @@ class HTTP_ConditionalGet
         $privacy                         = ($scope === 'private')
             ? ', private'
             : '';
-        $this->_headers['Cache-Control'] = "max-age={$maxAge}{$privacy}";
+        $this->_headers['Cache-Control'] = 'max-age=' . $maxAge . $privacy;
         // invalidate cache if disabled, otherwise check
         $this->cacheIsValid = !(isset($spec['invalidate']) && $spec['invalidate']) && $this->_isCacheValid();
     }
@@ -200,7 +200,6 @@ class HTTP_ConditionalGet
     /**
      * Send headers
      *
-     * @return null
      * @see getHeaders()
      *
      * Note this doesn't "clear" the headers. Calling sendHeaders() will
@@ -208,7 +207,7 @@ class HTTP_ConditionalGet
      * still return the headers.
      *
      */
-    public function sendHeaders()
+    public function sendHeaders(): void
     {
         $headers = $this->_headers;
         if (array_key_exists('_responseCode', $headers)) {

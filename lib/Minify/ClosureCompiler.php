@@ -140,13 +140,12 @@ class Minify_ClosureCompiler
     protected function getCompilerCommandLine()
     {
         $this->checkJar(self::$jarFile);
-        $server = [
+
+        return [
             self::$javaExecutable,
             '-jar',
             escapeshellarg(self::$jarFile)
         ];
-
-        return $server;
     }
 
     /**

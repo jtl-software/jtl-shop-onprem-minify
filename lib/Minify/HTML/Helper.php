@@ -7,6 +7,8 @@ declare(strict_types=1);
  * @package Minify
  */
 
+use Minify\App;
+
 /**
  * Helpers for writing Minify URIs into HTML
  *
@@ -170,11 +172,11 @@ class Minify_HTML_Helper
     }
 
     /**
-     * @param \Minify\App|null $app
-     * @return \Minify\App
+     * @param App|null $app
+     * @return App
      * @internal
      */
-    public static function app(\Minify\App $app = null)
+    public static function app(?App $app = null)
     {
         static $cached;
         if ($app) {

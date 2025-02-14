@@ -78,18 +78,14 @@ class Minify_CSS_UriRewriter
         $pattern = '/url\\(\\s*([\'"](.*?)[\'"]|[^\\)\\s]+)\\s*\\)/';
         $css     = preg_replace_callback($pattern, [self::$className, '_processUriCB'], $css);
 
-        $css = self::_unOwlify($css);
-
-        return $css;
+        return self::_unOwlify($css);
     }
 
     /**
      * In CSS content, prepend a path to relative URIs
      *
      * @param string $css
-     *
      * @param string $path The path to prepend.
-     *
      * @return string
      */
     public static function prepend($css, $path)
@@ -217,8 +213,7 @@ class Minify_CSS_UriRewriter
      * just remove the trailing slash.
      *
      * @param string $path
-     *
-     * @return mixed path with no trailing slash
+     * @return string path with no trailing slash
      */
     protected static function _realpath($path)
     {
@@ -261,7 +256,6 @@ class Minify_CSS_UriRewriter
 
     /**
      * @param string $css
-     *
      * @return string
      */
     private static function _trimUrls($css)

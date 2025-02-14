@@ -62,7 +62,6 @@ class Minify_ScssCssSource extends Minify_Source
      * Make a unique cache id for for this source.
      *
      * @param string $prefix
-     *
      * @return string
      */
     private function getCacheId($prefix = 'minify')
