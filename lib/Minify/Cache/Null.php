@@ -44,7 +44,7 @@ class Minify_Cache_Null implements Minify_CacheInterface
      */
     public function isValid($id, $srcMtime)
     {
-        return true;
+        return false;
     }
 
     /**
