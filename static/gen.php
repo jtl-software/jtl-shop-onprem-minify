@@ -21,8 +21,8 @@ $send_301 = static function ($url) {
     exit;
 };
 
-$app = (require $bootstrap_file);
 /* @var \Minify\App $app */
+$app = (require $bootstrap_file);
 
 if (!$app->config->enableStatic) {
     die('Minify static serving is not enabled. Set $min_enableStatic = true; in config.php');
