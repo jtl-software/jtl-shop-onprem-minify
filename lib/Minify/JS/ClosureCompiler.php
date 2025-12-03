@@ -200,7 +200,6 @@ class Minify_JS_ClosureCompiler
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
             $contents = curl_exec($ch);
-            curl_close($ch);
         } else {
             throw new Minify_JS_ClosureCompiler_Exception(
                 'Could not make HTTP request: allow_url_open is false and cURL not available'
