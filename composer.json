@@ -4,6 +4,7 @@
   "description": "Minify is a PHP app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
   "homepage": "https://github.com/mrclay/minify",
   "license": "BSD-3-Clause",
+  "version": "4.0.4",
   "authors": [
     {
       "name": "Stephen Clay",
@@ -28,12 +29,12 @@
   },
   "config": {
     "platform": {
-      "php": "8.2.0"
+      "php": "8.3.0"
     },
     "sort-packages": true
   },
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.3",
     "ext-pcre": "*",
     "ext-mbstring": "*",
     "intervention/httpauth": "^5.0",
