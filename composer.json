@@ -48,7 +48,7 @@
     "firephp/firephp-core": "~0.5.3",
     "phpunit/phpunit": "^11.3",
     "scssphp/scssphp": "^1.12",
-    "tedivm/jshrink": "~1.7.0"
+    "tedivm/jshrink": "~1.7.0 || ~1.8.0"
   },
   "scripts": {
     "test": "phpunit"
