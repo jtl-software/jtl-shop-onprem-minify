@@ -58,3 +58,13 @@ More [docs are available](docs).
 Minify was inspired by [jscsscomp](http://code.google.com/p/jscsscomp/) by Maxim Martynyuk and by the article [Supercharged JavaScript](http://www.hunlock.com/blogs/Supercharged_Javascript) by Patrick Hunlock.
 
 The [JSMin library](http://www.crockford.com/javascript/jsmin.html) used for JavaScript minification was originally written by Douglas Crockford and was [ported to PHP](https://github.com/mrclay/jsmin-php) by Ryan Grove specifically for use in Minify.
+
+## Secret check (optional, local)
+
+This repository ships an optional [pre-commit](https://pre-commit.com) hook that runs [gitleaks](https://github.com/gitleaks/gitleaks) to catch secrets before they are committed:
+
+```sh
+pip install pre-commit && pre-commit install
+```
+
+The check only runs on the developer machine. It does not run in CI and does not block anything there. Server-side GitHub push protection remains the hard gate.
